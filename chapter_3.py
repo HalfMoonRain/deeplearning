@@ -80,20 +80,48 @@ import matplotlib.pylab as plt
 # y = forward(network, x)
 # print(y)
 #################################################################
-def softmax(a):
-    exp_a = np.exp(a)
-    sum_exp_a = np.sum(exp_a)
-    y = exp_a / sum_exp_a
-    return y
+# def softmax(a):
+#     exp_a = np.exp(a)
+#     sum_exp_a = np.sum(exp_a)
+#     y = exp_a / sum_exp_a
+#     return y
 
-a = np.array([1010, 1000, 990])
-a_result = np.exp(a) / np.sum(np.exp(a))
-print(a_result)
-c = np.max(a)
-print(a - c)
+# a = np.array([1010, 1000, 990])
+# a_result = np.exp(a) / np.sum(np.exp(a))
+# print(a_result)
+# c = np.max(a)
+# print(a - c)
 
 #################################################################
+# def softmax(a):
+#     c = np.max(a)
+#     exp_a = np.exp(a - c) # 오버플로 대책
+#     sum_exp_a = np.sum(exp_a)
+#     y = exp_a / sum_exp_a
+#     return y
+
+#################################################################
+# MNIST
+import sys, os
+sys.path.append(os.pardir)  # 부모 디렉터리의 파일을 가져올 수 있도록 설정
+import numpy as np
+from dataset.mnist import load_mnist
+from PIL import Image
 
 
+def img_show(img):
+    pil_img = Image.fromarray(np.uint8(img))
+    pil_img.show()
 
+(x_train, t_train), (x_test, t_test) = load_mnist(flatten=True, normalize=False)
+
+img = x_train[0]
+label = t_train[0]
+print(label)  # 5
+
+print(img.shape)  # (784,)
+img = img.reshape(28, 28)  # 형상을 원래 이미지의 크기로 변형
+print(img.shape)  # (28, 28)
+
+img_show(img)
 #################################################################
